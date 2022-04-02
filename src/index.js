@@ -17,16 +17,19 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
+      xIsNext: true
     };
-    //console.log(this.state);
   }
 
   handleClicK(i) {
     const squares = this.state.squares.slice();
-    console.log(squares);
-    squares[i] = 'X';
-    this.setState({ squares: squares });
-    console.log(squares);
+    //console.log(squares);
+    squares[i] = this.state.xIsNext ? 'X' : "O";
+    this.setState({ 
+      squares: squares,
+      xIsNext: !this.state.xIsNext,
+    });
+    //console.log(squares);
   }
 
   renderSquare(i) {
@@ -38,7 +41,7 @@ class Board extends React.Component {
     );
   }
   render() {
-    const status = "Next player: X";
+    const status = "Next player: " + (this.state.xIsNext ? "X" : "O");
 
     return (
       <div>
@@ -81,8 +84,4 @@ class Game extends React.Component {
   }
 }
 
-var nombres = ['Rita', 'Pedro', 'Miguel', 'Ana', 'Vanesa'];
-var masculinos = nombres.slice();
-console.log(masculinos);
-console.log(nombres);
 ReactDOM.render(<Game />, document.getElementById("root"));
